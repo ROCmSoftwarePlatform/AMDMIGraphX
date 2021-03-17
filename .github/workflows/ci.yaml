@@ -126,10 +126,10 @@ jobs:
               -o -iname '*.cpp.in' \
               -o -iname '*.cl' \
           | grep -v 'build/' \
-          | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-5.0 -style=file {} | diff - {}'
+          | xargs -n 1 -P 1 -I{} -t sh -c 'clang-format-5.0 -style=file {} | diff - {} || exit 255'
           find . -iname '*.py' \
           | grep -v 'build/'  \
-          | xargs -n 1 -P 1 -I{} -t sh -c 'yapf {} | diff - {}'
+          | xargs -n 1 -P 1 -I{} -t sh -c 'yapf {} | diff - {} || exit 255'
   linux:
 
     runs-on: ${{ matrix.os }}
