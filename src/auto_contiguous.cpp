@@ -8,13 +8,10 @@
 namespace migraphx {
 inline namespace MIGRAPHX_INLINE_NS {
 
-void auto_contiguous::apply(module& p) const
-{
-    for(auto ins : iterator_for(p))
-    {
+void auto_contiguous::apply(module& p) const {
+    for(auto ins : iterator_for(p)) {
         shape s = ins->get_shape();
-        if(not s.standard() and s.elements() != 0)
-        {
+        if(not s.standard() and s.elements() != 0) {
             auto c = p.insert_instruction(std::next(ins), make_op("contiguous"), ins);
             p.replace_instruction(ins, c);
         }
